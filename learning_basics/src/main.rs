@@ -1,6 +1,6 @@
 
 fn main() {
-    let x : u8 = "60".parse().expect("Not a number");
+    let a = [9; 200];
 
-    println!("Suka blyat {x}");
+    println!("sorry about the su*a bl*at <3");
 }
