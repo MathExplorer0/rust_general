@@ -1,9 +1,8 @@
-use std::io;
-
 fn main() {
-    println!("yo bro {}", addition(69, 11));
-}
-
-fn addition(x: i32, y: i32) -> i32 {
-    x + y
+    let mut countdown = 10;
+    while countdown != 0 {
+        println!("{countdown}");
+        countdown -= 1;
+    }
+    println!("LIFTOFF !");
 }
