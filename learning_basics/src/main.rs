@@ -1,13 +1,10 @@
 fn main() {
-    let mut counter = 0;
+    //References and Borrowing
+    let s = String::from("hello");
+    let size = size_calc(&s);
+    println!("{}", size);
+}
 
-    let result = loop {
-        counter += 1;
-
-        if counter == 10 {
-            break counter * 2;
-        }
-    };
-
-    println!("The result is {result}");
+fn size_calc(x: &String) -> usize {
+    x.len()
 }
