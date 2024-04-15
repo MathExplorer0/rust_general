@@ -1,4 +1,3 @@
-workspace = { members = ["calculator_proj"] }
 [package]
 name = "learning_basics"
 version = "0.1.0"
