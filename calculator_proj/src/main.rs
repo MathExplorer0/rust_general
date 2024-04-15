@@ -2,16 +2,17 @@ use std::io;
 
 fn main() {
     println!("Hello and welcome to the MATH calculator !");
+    let mut buffer = String::new();
     loop {
         println!("Please enter fist digit: ");
-        let i1 = get_input();
+        let i1 = get_input(&mut buffer);
         println!("input x: {}", i1);
         println!("Please enter second digit: ");
-        let i2 = get_input();
+        let i2 = get_input(&mut buffer);
         println!("input x: {}", i2);
 
         println!("0-to exit | 1-to add | 2-to subtract | 3-to multiply | 4-to divide");
-        let choice = get_input();
+        let choice = get_input(&mut buffer);
         let mut output = 0.0; 
         if choice > 4.0 {
             println!("out of bound!");
@@ -31,11 +32,10 @@ fn main() {
     }
 }
 
-fn get_input() -> f64 {
-    let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer).expect("ERROR");
-    let buffer: f64 = buffer.trim().parse().expect("please type a number!");
-    buffer
+fn get_input(buffer: &mut String) -> f64 {
+    buffer.clear();
+    io::stdin().read_line(buffer).expect("ERROR");
+    buffer.trim().parse().expect("please type a number!")
 }
 
 fn addition(x: f64, y: f64) -> f64 { x + y }
