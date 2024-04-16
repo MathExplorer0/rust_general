@@ -1,11 +1,21 @@
 fn main() {
-    let mut s = String::from("hello");
+    let mut s = String::from("hello world");
 
-    let r1 = &s; // no problem
-    let r2 = &s; // no problem
-    println!("{} and {}", r1, r2);
+    let word = first_word(&s);
+
+    s.clear(); //err ?
+
+    println!("the first word is: {}", word);
+}
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
     
-    let r3 = &mut s; // no problem
-    r3.insert_str(0, "bar");
-    println!("{}", s);
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
 }
