@@ -13,7 +13,7 @@ fn main() {
 
         println!("0-to exit | 1-to add | 2-to subtract | 3-to multiply | 4-to divide");
         let choice = get_input(&mut buffer);
-        let mut output = 0.0; 
+        let mut output = 0.0;
         if choice > 4.0 {
             println!("out of bound!");
             continue;
@@ -38,10 +38,18 @@ fn get_input(buffer: &mut String) -> f64 {
     buffer.trim().parse().expect("please type a number!")
 }
 
-fn addition(x: f64, y: f64) -> f64 { x + y }
+fn addition(x: f64, y: f64) -> f64 {
+    x + y
+}
 
-fn subtraction(x: f64, y: f64) -> f64 { x - y }
+fn subtraction(x: f64, y: f64) -> f64 {
+    x - y
+}
 
-fn multiplication(x: f64, y: f64) -> f64 { x * y } 
+fn multiplication(x: f64, y: f64) -> f64 {
+    x * y
+}
 
-fn division(x: f64, y: f64) -> f64 { x / y } 
+fn division(x: f64, y: f64) -> f64 {
+    x / y
+}
