@@ -5,8 +5,8 @@ struct Rectangle {
 }
 
 impl Rectangle {
-    fn width(&self) -> bool {
-        self.width > 0
+    fn width(&self) {
+        println!("True");
     }
 }
 
@@ -15,8 +15,5 @@ fn main() {
         width: 30,
         height: 50,
     };
-
-    if rect1.width() {
-        println!("The rectangle has a nonzero width; it is {}", rect1.width);
-    }
+    rect1.width();
 }
