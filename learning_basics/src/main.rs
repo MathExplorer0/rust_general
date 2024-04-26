@@ -7,12 +7,11 @@ fn main() {
     );
 }
 
+//so fucking easy !
 fn reverse_string(string: &String) -> String {
-    let reversed = String::new();
-
+    let mut reversed = String::new();
     for letters in string.chars() {
-        reversed.push_str(letters);
+        reversed.insert_str(0, &letters.to_string());
     }
-
     reversed
 }
