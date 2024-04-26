@@ -1,10 +1,18 @@
 fn main() {
-    println!("Pyramid program");
-    let height = 3;
-    let width = height * 2 - 1;
-    let mut space = height / 2 + 1;
+    let string = String::from("stressed");
+    let reversed_string = reverse_string(&string);
+    println!(
+        "the reversed string of -{}- is -{}-",
+        string, reversed_string
+    );
+}
 
-    for i in 0..height {
-        for j in 0..width {}
+fn reverse_string(string: &String) -> String {
+    let reversed = String::new();
+
+    for letters in string.chars() {
+        reversed.push_str(letters);
     }
+
+    reversed
 }
