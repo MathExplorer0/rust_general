@@ -1,17 +1,16 @@
-fn main() {
-    let string = String::from("stressed");
-    let reversed_string = reverse_string(&string);
-    println!(
-        "the reversed string of -{}- is -{}-",
-        string, reversed_string
-    );
+#[derive(Debug)]
+enum IpType {
+    V4,
+    V6,
 }
 
-//so fucking easy !
-fn reverse_string(string: &String) -> String {
-    let mut reversed = String::new();
-    for letters in string.chars() {
-        reversed.insert_str(0, &letters.to_string());
-    }
-    reversed
+fn main() {
+    let _four = IpType::V4;
+    let six = IpType::V6;
+
+    print_type(six);
+}
+
+fn print_type(input: IpType) {
+    println!("the type is: {:?}", input);
 }
