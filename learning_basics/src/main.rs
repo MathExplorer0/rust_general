@@ -1,16 +1,20 @@
-#[derive(Debug)]
-enum IpType {
-    V4,
-    V6,
-}
-
 fn main() {
-    let _four = IpType::V4;
-    let six = IpType::V6;
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
 
-    print_type(six);
-}
+    impl Message {
+        fn call(&self, x: u32) {
+            println!("{x}");
+        }
+    }
 
-fn print_type(input: IpType) {
-    println!("the type is: {:?}", input);
+    let m = Message::Write(String::from("hello"));
+    m.call(69);
+    let x: Option<u32> = Option::None;
+
+    assert_eq!(x.is_none(), true);
 }
