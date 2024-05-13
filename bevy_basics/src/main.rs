@@ -1,38 +1,26 @@
-use bevy::{prelude::*, sprite::MaterialMesh2dBundle, window::WindowResolution};
+//! This example shows the simplest way to create a Perf UI.
+//! (using defaults for everything)
 
-pub struct MainPlug;
-
-impl Plugin for MainPlug {
-    fn build(&self, app: &mut App) {
-        app.add_plugins(DefaultPlugins.set(WindowPlugin {
-            primary_window: Some(Window {
-                title: "Learning Bevy".to_string(),
-                resolution: WindowResolution::new(600.0, 600.0),
-                resizable: false,
-                ..Default::default()
-            }),
-            ..Default::default()
-        }));
-    }
-}
-
-fn setup(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
-) {
-    commands.spawn(Camera2dBundle::default());
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(Rectangle::default()).into(),
-        transform: Transform::default().with_scale(Vec3::splat(128.0)),
-        material: materials.add(Color::PURPLE),
-        ..default()
-    });
-}
+use bevy::prelude::*;
+use iyes_perf_ui::prelude::*;
 
 fn main() {
     App::new()
-        .add_plugins(MainPlug)
+        .add_plugins(DefaultPlugins)
+        // we want Bevy to measure these values for us:
+        .add_plugins(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
+        .add_plugins(bevy::diagnostic::EntityCountDiagnosticsPlugin)
+        .add_plugins(bevy::diagnostic::SystemInformationDiagnosticsPlugin)
+        .add_plugins(PerfUiPlugin)
         .add_systems(Startup, setup)
         .run();
+}
+
+fn setup(mut commands: Commands) {
+    // spawn a camera to be able to see anything
+    commands.spawn(Camera2dBundle::default());
+
+    // create a simple Perf UI with default settings
+    // and all entries provided by the crate:
+    commands.spawn(PerfUiCompleteBundle::default());
 }

@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 bevy = { version = "0.13.0", features = ["dynamic_linking"] }
+iyes_perf_ui = "0.2"
 
 [workspace]
 resolver = "2"
