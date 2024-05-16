@@ -1,3 +1,4 @@
 fn main() {
-    println!("Hello and welcome to this stream !");
+    let v: Vec<i32> = Vec::new();
+    let v2 = [1, 2, 3];
 }

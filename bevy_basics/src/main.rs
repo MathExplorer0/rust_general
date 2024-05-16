@@ -25,5 +25,5 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
-    println!("test");
+    println!("Hello, World!");
 }
