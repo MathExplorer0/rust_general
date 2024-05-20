@@ -30,3 +30,5 @@ pub fn setup(
         ..default()
     });
 }
+
+pub fn update_test() {}
