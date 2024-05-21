@@ -1,54 +1,46 @@
-use bevy::{prelude::*, sprite::MaterialMesh2dBundle, window::WindowResolution};
+use bevy::{prelude::*, render::pass::ClearColor, window::WindowDescriptor};
 
-pub struct CorePlug;
-
-const SCREEN_WIDTH: f32 = 600.0;
-const SCREEN_HIEGHT: f32 = 600.0;
-const BALL_SCALE: f32 = 30.0;
-
-impl Plugin for CorePlug {
-    fn build(&self, app: &mut App) {
-        app.add_plugins(DefaultPlugins.set(WindowPlugin {
-            primary_window: Some(Window {
-                title: "Hello bevy".to_string(),
-                resolution: WindowResolution::new(SCREEN_WIDTH, SCREEN_HIEGHT),
-                resizable: false,
-                ..Default::default()
-            }),
-            ..Default::default()
-        }));
-    }
-}
-
-#[derive(Component)]
-struct Ball;
-
-const INIT_BALL_TRANSFORM: Transform =
-    Transform::from_xyz(0.0, 0.0, 0.0).with_scale(Vec3::splat(BALL_SCALE));
-
-fn setup(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
-) {
-    //camera
-    commands.spawn(Camera2dBundle::default());
-
-    //ball
-    commands.spawn((
-        MaterialMesh2dBundle {
-            mesh: meshes.add(Circle::default()).into(),
-            material: materials.add(Color::rgb(1.0, 1.0, 1.0)),
-            transform: INIT_BALL_TRANSFORM,
-            ..default()
-        },
-        Ball,
-    ));
+struct Ball {
+    velocity: Vec2,
 }
 
 fn main() {
-    App::new()
-        .add_plugins(CorePlug)
-        .add_systems(Startup, setup)
+    App::build()
+        .insert_resource(WindowDescriptor {
+            title: "Sinusoidal Motion".to_string(),
+            width: 600.0,
+            height: 600.0,
+            ..Default::default()
+        })
+        .insert_resource(ClearColor(Color::BLACK))
+        .add_plugins(DefaultPlugins)
+        .add_startup_system(setup.system())
+        .add_system(ball_movement.system())
         .run();
+}
+
+fn setup(mut commands: Commands) {
+    commands.spawn_bundle(OrthographicCameraBundle::new_2d());
+    commands
+        .spawn_bundle(SpriteBundle {
+            sprite: Sprite::new(Vec2::splat(50.0)),
+            transform: Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
+            ..Default::default()
+        })
+        .insert(Ball {
+            velocity: Vec2::new(1.0, 1.0),
+        });
+}
+
+fn ball_movement(time: Res<Time>, mut query: Query<(&mut Transform, &mut Ball)>) {
+    for (mut transform, mut ball) in query.iter_mut() {
+        let dt = time.delta_seconds();
+        // Update position using sinusoidal motion
+        transform.translation.x += ball.velocity.x * dt;
+        transform.translation.y += ball.velocity.y * dt;
+        // Update velocity using sin and cos
+        let t = time.seconds_since_startup() as f32;
+        ball.velocity.x = (2.0 * t).sin();
+        ball.velocity.y = (3.0 * t).cos();
+    }
 }
